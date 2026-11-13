@@ -17,6 +17,10 @@ public class Dealership {
         this.inventory = new ArrayList<Vehicle>();
     }
 
+    public Dealership() {
+        this.inventory = new ArrayList<Vehicle>();
+    }
+
     public List<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
         return null;
     }
