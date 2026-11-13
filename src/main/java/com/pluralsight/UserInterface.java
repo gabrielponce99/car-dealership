@@ -96,10 +96,24 @@ public class UserInterface {
     }
 
     public void processGetByMakeModelRequest() {
+        System.out.println("Enter make (or leave blank): ");
+        String make = scanner.nextLine();
+
+        System.out.println("Enter model (or leave blank): ");
+        String model = scanner.nextLine();
+
+        displayVehicles(dealership.getVehiclesByMakeModel(make, model));
 
     }
 
     public void processGetByYearRequest() {
+        System.out.println("Enter the oldest year (e.g. 1999): ");
+        int min = scanner.nextInt();
+
+        System.out.println("Enter the newest year (e.g. 2026): ");
+        int max = scanner.nextInt();
+
+        displayVehicles(dealership.getVehiclesByYear(min, max));
 
     }
 
