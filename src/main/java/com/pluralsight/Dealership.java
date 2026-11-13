@@ -59,11 +59,25 @@ public class Dealership {
     }
 
     public List<Vehicle> getVehiclesByColor(String color) {
-        return null;
+        List<Vehicle> output = new ArrayList<>();
+
+        for (Vehicle vehicle : inventory) {
+            if (vehicle != null && vehicle.getColor().equalsIgnoreCase(color)) {
+                output.add(vehicle);
+            }
+        }
+        return output;
     }
 
     public List<Vehicle> getVehiclesByMileage(int min, int max) {
-        return null;
+        List<Vehicle> output = new ArrayList<>();
+
+        for (Vehicle vehicle : inventory) {
+            if (vehicle != null && vehicle.getOdometer() >= min && vehicle.getOdometer() <= max) {
+                output.add(vehicle);
+            }
+        }
+        return output;
     }
 
     public List<Vehicle> getVehiclesByType(String vehicleType) {

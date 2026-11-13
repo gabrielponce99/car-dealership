@@ -118,11 +118,22 @@ public class UserInterface {
     }
 
     public void processGetByColorRequest() {
+        System.out.println("Enter the color: ");
+        String color = scanner.nextLine();
 
+        displayVehicles(dealership.getVehiclesByColor(color));
     }
 
     public void processGetByMileageRequest() {
+        System.out.println("Enter minimum mileage: ");
+        int min = scanner.nextInt();
+        scanner.nextLine();
 
+        System.out.println("Enter maximum mileage: ");
+        int max = scanner.nextInt();
+        scanner.nextLine();
+
+        displayVehicles(dealership.getVehiclesByMileage(min, max));
     }
 
     public void processGetByVehicleTypeRequest() {
