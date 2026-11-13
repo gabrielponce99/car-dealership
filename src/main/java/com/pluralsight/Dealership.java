@@ -76,4 +76,8 @@ public class Dealership {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public List<Vehicle> getAllVehicles() {
+        return inventory;
+    }
 }

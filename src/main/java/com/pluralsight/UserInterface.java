@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -73,7 +74,7 @@ public class UserInterface {
                 case 8 -> processAddVehicleRequest();
                 case 9 -> processRemoveVehicleRequest();
                 case 0 -> {
-                    System.out.println("Thanks for using out app!");
+                    System.out.println("Thanks for using our app!");
                     System.exit(0);
                 }
             }
@@ -105,7 +106,8 @@ public class UserInterface {
     }
 
     public void processGetAllVehiclesRequest() {
-
+        List<Vehicle> vehicles = this.dealership.getAllVehicles();
+        displayVehicles(vehicles);
     }
 
     public void processAddVehicleRequest() {
