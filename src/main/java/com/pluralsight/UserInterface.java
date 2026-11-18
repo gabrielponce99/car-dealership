@@ -7,7 +7,8 @@ import java.util.Scanner;
 
 public class UserInterface {
     Scanner scanner = new Scanner(System.in);
-    private  Dealership dealership;
+    private Dealership dealership;
+    private DealershipFileManager fileManager = new DealershipFileManager();
 
     private void init() {
         DealershipFileManager file = new DealershipFileManager();
@@ -149,11 +150,89 @@ public class UserInterface {
     }
 
     public void processAddVehicleRequest() {
+        int vin = promptForInt("Enter VIN: ");
+        int year = promptForInt("Enter year: ");
+        String make = promptForString("Enter make: ");
+        String model = promptForString("Enter model: ");
+        String type = promptForString("Enter vehicle type (e.g. SUV, car, truck, van): ");
+        String color = promptForString("Enter color: ");
+        int odometer = promptForInt("Enter odometer: ");
+        BigDecimal price = promptForBigDecimal("Enter price: ");
 
+        Vehicle vehicle = new Vehicle(vin, year, odometer, make, model, color, type, price);
+        dealership.addVehicle(vehicle);
+
+        fileManager.saveDealership(dealership);
+        System.out.println("Vehicle added successfully!");
     }
 
     public void processRemoveVehicleRequest() {
+        int vin = promptForInt("Enter the VIN of the vehicle to remove: ");
 
+        Vehicle vehicleToRemove = null;
+
+        for (Vehicle vehicle : dealership.getAllVehicles()) {
+            if (vehicle.getVin() == vin) {
+                vehicleToRemove = vehicle;
+            }
+        }
+        if (vehicleToRemove == null) {
+            System.out.println("No vehicle found with VIN " + vin + ".");
+            return;
+        }
+
+        dealership.removeVehicle(vehicleToRemove);
+
+        fileManager.saveDealership(dealership);
+        System.out.println("Vehicle with VIN " + vin + " removed successfully!.");
     }
 
+    private BigDecimal promptForBigDecimal(String prompt) {
+        while (true) {
+            System.out.println(prompt);
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                System.out.println("This can't be blank.");
+                continue;
+            }
+
+            try {
+                BigDecimal value = new BigDecimal(input);
+
+                if (value.compareTo(BigDecimal.ZERO) < 0) {
+                    System.out.println("Please enter a positive amount.");
+                } else {
+                    return value;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number (e.g. 15999.99).");
+            }
+        }
+    }
+
+    private int promptForInt(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number (e.g. 89).");
+            }
+        }
+    }
+
+    public String promptForString(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                System.out.println("This can't be blank.");
+            } else if (input.contains("|")) {
+                System.out.println("Please don't use the | character.");
+            } else {
+                return input;
+            }
+        }
+    }
 }

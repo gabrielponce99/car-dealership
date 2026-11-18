@@ -38,9 +38,11 @@ public class Dealership {
         List<Vehicle> output = new ArrayList<>();
 
         for (Vehicle vehicle : inventory) {
-            if (vehicle != null && vehicle.getMake().equalsIgnoreCase(make)) {
-                output.add(vehicle);
-            } else if (vehicle != null && vehicle.getModel().equalsIgnoreCase(model)) {
+            if (vehicle == null) {
+                continue;
+            }
+
+            if ((make.isBlank() || vehicle.getMake().equalsIgnoreCase(make)) && (model.isBlank() || vehicle.getModel().equalsIgnoreCase(model))) {
                 output.add(vehicle);
             }
         }
